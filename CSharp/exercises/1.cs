@@ -1,5 +1,3 @@
-using System;
-
 namespace AdventOfCode {
     public class Exercise1 : Exercise {
         public Exercise1(string name, string[] input) : base(name, input) {

@@ -30,6 +30,9 @@ namespace AdventOfCode
                     case "1":
                         e = new Exercise1(s, input);
                         break;
+                    case "2":
+                        e = new Exercise2(s, input);
+                        break;
                     default:
                         throw new Exception("invalid argument");
                 }
@@ -42,7 +45,7 @@ namespace AdventOfCode
         }
 
         static string[] readInput(string exercise) {
-            StreamReader sr = new StreamReader($"./input/{exercise}.txt");
+            StreamReader sr = new StreamReader($"../input/{exercise}.txt");
 
             return sr.ReadToEnd().Split('\n');
         }
