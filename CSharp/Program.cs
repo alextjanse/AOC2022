@@ -22,6 +22,8 @@ namespace AdventOfCode
 
     internal class Program {
         static void Main(string[] args) {
+            args = new string[] { "5" };
+            
             foreach (string s in args) {
                 string[] input = readInput(s);
                 Exercise e;
@@ -32,6 +34,9 @@ namespace AdventOfCode
                         break;
                     case "2":
                         e = new Exercise2(s, input);
+                        break;
+                    case "5":
+                        e = new Exercise5(s, input);
                         break;
                     default:
                         throw new Exception("invalid argument");
