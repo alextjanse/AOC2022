@@ -22,6 +22,10 @@ namespace AdventOfCode
 
     internal class Program {
         static void Main(string[] args) {
+            if (args.Length == 0) {
+                args = new string[] { "1", "2", "3", "4" };
+            }
+
             foreach (string s in args) {
                 string[] input = readInput(s);
                 Exercise e;
@@ -32,6 +36,12 @@ namespace AdventOfCode
                         break;
                     case "2":
                         e = new Exercise2(s, input);
+                        break;
+                    case "3":
+                        e = new Exercise3(s, input);
+                        break;
+                    case "4":
+                        e = new Exercise4(s, input);
                         break;
                     default:
                         throw new Exception("invalid argument");
