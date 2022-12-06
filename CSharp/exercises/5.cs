@@ -1,27 +1,33 @@
 namespace AdventOfCode {
     public class Day5 : Problem {
-        Stack<char>[] starting_stacks, stacks;
+        Stack<char>[] stacks1, stacks2;
         List<(int, int, int)> exchanges;
 
         public Day5(string name, string[] input) : base(name, input) {
-            int nStacks = (input[0].Length + 1) / 4;
+            int n = (input[0].Length + 1) / 4;
 
-            starting_stacks = new Stack<char>[nStacks];
-            stacks = new Stack<char>[nStacks];
+            // Two times the items, so we have a fresh version for part 2
+            stacks1 = new Stack<char>[n];
+            stacks2 = new Stack<char>[n];
 
-            List<char>[] temps = new List<char>[nStacks];
+            /* 
+            The items of each stack. We need to store them first in lists,
+            so we can then add them bottom-up to the stacks.
+             */            
+            List<char>[] items = new List<char>[n];
 
-            for (int i = 0; i < nStacks; i++) {
-                starting_stacks[i] = new Stack<char>();
-                stacks[i] = new Stack<char>();
-                temps[i] = new List<char>();
+            for (int i = 0; i < n; i++) {
+                stacks1[i] = new Stack<char>();
+                stacks2[i] = new Stack<char>();
+                items[i] = new List<char>();
             }
 
             int currentLine = 0;
             string line = input[currentLine++];
 
+            // Add items to items
             while (line.Contains('[')) {
-                for (int i = 0; i < nStacks; i++) {
+                for (int i = 0; i < n; i++) {
                     int index = 4 * i + 1;
                     
                     char value = line[index];
@@ -30,48 +36,44 @@ namespace AdventOfCode {
                         continue;
                     }
 
-                    temps[i].Add(value);
+                    items[i].Add(value);
                 }
 
                 line = input[currentLine++];
             }
 
-            for (int i = 0; i < nStacks; i++) {
-                for (int j = temps[i].Count - 1; j >= 0; j--) {
-                    starting_stacks[i].Push(temps[i][j]);
-                    stacks[i].Push(temps[i][j]);
+            // Add items in right order to the stacks
+            for (int i = 0; i < n; i++) {
+                for (int j = items[i].Count - 1; j >= 0; j--) {
+                    stacks1[i].Push(items[i][j]);
+                    stacks2[i].Push(items[i][j]);
                 }
             }
 
+            // Tuple of each exchange: (amount, fromIndex, toIndex)
             exchanges = new List<(int, int, int)>();
 
             currentLine++;
 
-            for (; currentLine < input.Length; currentLine++) {
+            while(currentLine < input.Length) {
                 line = input[currentLine];
                 
                 string[] splits = line.Split();
 
                 int amount = int.Parse(splits[1]);
-                int from = int.Parse(splits[3]) - 1; // 0-indexing
-                int to = int.Parse(splits[5]) - 1; // 0-indexing
+                int from = int.Parse(splits[3]) - 1; // Adjust for 0-indexing
+                int to = int.Parse(splits[5]) - 1;
 
                 exchanges.Add((amount, from, to));
+
+                currentLine++;
             }
         }
 
-        void resetStacks() {
-            stacks = new Stack<char>[starting_stacks.Length];
-
-            for (int i = 0; i < stacks.Length; i++) {
-                stacks[i] = new Stack<char>(starting_stacks[i].Reverse());
-            }
-        }
-
-        string read(Stack<char>[] stacks) {
+        string read(Stack<char>[] items) {
             string output = "";
 
-            foreach (Stack<char> stack in stacks) {
+            foreach (Stack<char> stack in items) {
                 output += stack.Peek();
             }
 
@@ -79,31 +81,40 @@ namespace AdventOfCode {
         }
 
         protected override string solvePart1() {
+            /* 
+            Apply the list of exhanges one by one
+             */
             foreach ((int amount, int from, int to) in exchanges) {
                 for (int i = 0; i < amount; i++) {
-                    stacks[to].Push(stacks[from].Pop());
+                    // Can this be done nicer? Probably.
+                    stacks1[to].Push(stacks1[from].Pop());
                 }
             }
 
-            return read(stacks);
+            return read(stacks1);
         }
 
         protected override string solvePart2() {
-            resetStacks();
-
+            /* 
+            We can't move multiple items at once, so we make a new stack,
+            where we put all the items on one by one (order will reverse).
+            After moving all items to this pile, we move them to the destination
+            stack, reversing the order again, putting them in the correct order.
+             */
+            
             Stack<char> pile = new Stack<char>();
 
             foreach ((int amount, int from, int to) in exchanges) {
                 for (int i = 0; i < amount; i++) {
-                    pile.Push(stacks[from].Pop());
+                    pile.Push(stacks2[from].Pop());
                 }
 
                 while (pile.Count > 0) {
-                    stacks[to].Push(pile.Pop());
+                    stacks2[to].Push(pile.Pop());
                 }
             }
 
-            return read(stacks);
+            return read(stacks2);
         }
     }
 }

@@ -1,5 +1,7 @@
 namespace AdventOfCode {
     public class Day2 : Problem {
+        enum Move { Rock, Paper, Scissors };
+
         public Day2(string name, string[] input) : base(name, input) {
             
         }
@@ -31,6 +33,7 @@ namespace AdventOfCode {
 
                 switch (moves[1]) {
                     case "X":
+                        // Sexy use of modulus here (RPC is a cycle, so use mod to loop around)
                         player = (Move)(((int)opponent + 3 - 1) % 3);
                         break;
                     case "Y":
@@ -49,9 +52,8 @@ namespace AdventOfCode {
             return totalScore.ToString();
         }
 
-        enum Move { Rock, Paper, Scissors };
-
         Move stringToMove(string s) {
+            // Map the character to the move
             switch (s) {
                 case "A":
                 case "X":
@@ -68,6 +70,7 @@ namespace AdventOfCode {
         }
 
         int moveScore(Move move) {
+            // Just a lookup for the move score
             switch (move) {
                 case Move.Rock:
                     return 1;
@@ -86,6 +89,7 @@ namespace AdventOfCode {
 
             int score = moveScore(player);
 
+            // Again, sexy modulus.
             if (iPlayer == (iOpponent + 1) % 3) { // player wins
                 score += 6;
             } else if (iPlayer == iOpponent) { // draw

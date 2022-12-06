@@ -24,10 +24,8 @@ namespace AdventOfCode
 
     internal class Program {
         static void Main(string[] args) {
-            args = new string[] { "6" };
-
             if (args.Length == 0) {
-                args = new string[] { "1", "2", "3", "4", "5" };
+                args = new string[] { "1", "2", "3", "4", "5", "6" };
             }
 
             foreach (string s in args) {
