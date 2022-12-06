@@ -24,35 +24,40 @@ namespace AdventOfCode
 
     internal class Program {
         static void Main(string[] args) {
+            args = new string[] { "6" };
+
             if (args.Length == 0) {
                 args = new string[] { "1", "2", "3", "4", "5" };
             }
 
             foreach (string s in args) {
                 string[] input = readInput(s);
-                Problem p;
+                Problem problem;
 
                 switch (s) {
                     case "1":
-                        p = new Day1(s, input);
+                        problem = new Day1(s, input);
                         break;
                     case "2":
-                        p = new Day2(s, input);
+                        problem = new Day2(s, input);
                         break;
                     case "3":
-                        p = new Day3(s, input);
+                        problem = new Day3(s, input);
                         break;
                     case "4":
-                        p = new Day4(s, input);
+                        problem = new Day4(s, input);
                         break;
                     case "5":
-                        p = new Day5(s, input);
+                        problem = new Day5(s, input);
+                        break;
+                    case "6":
+                        problem = new Day6(s, input);
                         break;
                     default:
                         throw new Exception("invalid argument");
                 }
 
-                p.solve();
+                problem.solve();
             }
         }
 

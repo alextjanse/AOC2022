@@ -7,11 +7,13 @@ namespace AdventOfCode {
             int nStacks = (input[0].Length + 1) / 4;
 
             starting_stacks = new Stack<char>[nStacks];
+            stacks = new Stack<char>[nStacks];
 
             List<char>[] temps = new List<char>[nStacks];
 
             for (int i = 0; i < nStacks; i++) {
                 starting_stacks[i] = new Stack<char>();
+                stacks[i] = new Stack<char>();
                 temps[i] = new List<char>();
             }
 
@@ -37,6 +39,7 @@ namespace AdventOfCode {
             for (int i = 0; i < nStacks; i++) {
                 for (int j = temps[i].Count - 1; j >= 0; j--) {
                     starting_stacks[i].Push(temps[i][j]);
+                    stacks[i].Push(temps[i][j]);
                 }
             }
 
@@ -57,7 +60,7 @@ namespace AdventOfCode {
             }
         }
 
-        void init() {
+        void resetStacks() {
             stacks = new Stack<char>[starting_stacks.Length];
 
             for (int i = 0; i < stacks.Length; i++) {
@@ -76,8 +79,6 @@ namespace AdventOfCode {
         }
 
         protected override string solvePart1() {
-            init();
-
             foreach ((int amount, int from, int to) in exchanges) {
                 for (int i = 0; i < amount; i++) {
                     stacks[to].Push(stacks[from].Pop());
@@ -88,7 +89,7 @@ namespace AdventOfCode {
         }
 
         protected override string solvePart2() {
-            init();
+            resetStacks();
 
             Stack<char> pile = new Stack<char>();
 
