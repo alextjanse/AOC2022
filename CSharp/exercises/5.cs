@@ -1,6 +1,6 @@
 namespace AdventOfCode {
     public class Day5 : Problem {
-        Stack<char>[] starting_stacks;
+        Stack<char>[] starting_stacks, stacks;
         List<(int, int, int)> exchanges;
 
         public Day5(string name, string[] input) : base(name, input) {
@@ -57,6 +57,14 @@ namespace AdventOfCode {
             }
         }
 
+        void init() {
+            stacks = new Stack<char>[starting_stacks.Length];
+
+            for (int i = 0; i < stacks.Length; i++) {
+                stacks[i] = new Stack<char>(starting_stacks[i].Reverse());
+            }
+        }
+
         string read(Stack<char>[] stacks) {
             string output = "";
 
@@ -68,7 +76,8 @@ namespace AdventOfCode {
         }
 
         protected override string solvePart1() {
-            Stack<char>[] stacks = starting_stacks.ToArray();
+            init();
+
             foreach ((int amount, int from, int to) in exchanges) {
                 for (int i = 0; i < amount; i++) {
                     stacks[to].Push(stacks[from].Pop());
@@ -78,9 +87,8 @@ namespace AdventOfCode {
             return read(stacks);
         }
 
-        protected override string solvePart2()
-        {
-            Stack<char>[] stacks = starting_stacks.ToArray();
+        protected override string solvePart2() {
+            init();
 
             Stack<char> pile = new Stack<char>();
 

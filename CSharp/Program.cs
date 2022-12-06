@@ -13,12 +13,11 @@ namespace AdventOfCode
         }
 
         public void solve() {
-            Console.WriteLine($" Day {name}");
+            Console.WriteLine($"    Day {name}");
             Console.WriteLine("Part One: " + solvePart1());
-            Console.WriteLine("Part Two "+ solvePart2());
+            Console.WriteLine("Part Two: "+ solvePart2());
         }
 
-        protected abstract void reset();
         protected abstract string solvePart1();
         protected abstract string solvePart2();
     }

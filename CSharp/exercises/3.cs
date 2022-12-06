@@ -37,10 +37,6 @@ namespace AdventOfCode
             return string.Join("", array);
         }
         
-        protected override void reset() {
-            
-        }
-
         protected override string solvePart1() {
             int total = 0;
 
@@ -68,8 +64,7 @@ namespace AdventOfCode
             return total.ToString();
         }
 
-        protected override string solvePart2()
-        {
+        protected override string solvePart2() {
             int total = 0;
 
             for (int i = 0; i < input.Length; i += 3) {

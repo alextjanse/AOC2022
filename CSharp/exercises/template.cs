@@ -5,10 +5,6 @@ namespace AdventOfCode
 
         }
 
-        protected override void reset() {
-            throw new NotImplementedException();
-        }
-
         protected override string solvePart1() {
             throw new NotImplementedException();
         }

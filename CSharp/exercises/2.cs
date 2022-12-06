@@ -4,10 +4,6 @@ namespace AdventOfCode {
             
         }
 
-        protected override void reset() {
-            
-        }
-
         protected override string solvePart1() {
             int totalScore = 0;
 

@@ -9,13 +9,7 @@ namespace AdventOfCode
             return lb1 <= lb2 && ub1 >= ub2;
         }
 
-        protected override void reset()
-        {
-            
-        }
-
-        protected override string solvePart1()
-        {
+        protected override string solvePart1() {
             int total = 0;
 
             foreach (string line in input) {
@@ -42,8 +36,7 @@ namespace AdventOfCode
             return lb1 <= lb2 && ub1 >= lb2;
         }
 
-        protected override string solvePart2()
-        {
+        protected override string solvePart2() {
             int total = 0;
 
             foreach (string line in input) {
