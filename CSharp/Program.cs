@@ -3,21 +3,24 @@ using System.IO;
 
 namespace AdventOfCode
 {
-    public class Exercise {
-        public string[] input;
+    public abstract class Problem {
+        string name;
+        protected string[] input;
 
-        public Exercise(string name, string[] input) {
-            Console.WriteLine($"Day {name}");
+        public Problem(string name, string[] input) {
+            this.name = name;
             this.input = input;
         }
 
-        public virtual void solvePart1() {
-            Console.Write("Part One: ");
+        public void solve() {
+            Console.WriteLine($" Day {name}");
+            Console.WriteLine("Part One: " + solvePart1());
+            Console.WriteLine("Part Two "+ solvePart2());
         }
 
-        public virtual void solvePart2() {
-            Console.Write("Part Two: ");
-        }
+        protected abstract void reset();
+        protected abstract string solvePart1();
+        protected abstract string solvePart2();
     }
 
     internal class Program {
@@ -28,32 +31,29 @@ namespace AdventOfCode
 
             foreach (string s in args) {
                 string[] input = readInput(s);
-                Exercise e;
+                Problem p;
 
                 switch (s) {
                     case "1":
-                        e = new Exercise1(s, input);
+                        p = new Day1(s, input);
                         break;
                     case "2":
-                        e = new Exercise2(s, input);
+                        p = new Day2(s, input);
                         break;
                     case "3":
-                        e = new Exercise3(s, input);
+                        p = new Day3(s, input);
                         break;
                     case "4":
-                        e = new Exercise4(s, input);
+                        p = new Day4(s, input);
                         break;
                     case "5":
-                        e = new Exercise5(s, input);
+                        p = new Day5(s, input);
                         break;
                     default:
                         throw new Exception("invalid argument");
                 }
 
-                e.solvePart1();
-                e.solvePart2();
-
-                Console.WriteLine(); // empty line seperating the exercise outputs
+                p.solve();
             }
         }
 

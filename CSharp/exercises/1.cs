@@ -1,13 +1,14 @@
 namespace AdventOfCode {
-    public class Exercise1 : Exercise {
-        public Exercise1(string name, string[] input) : base(name, input) {
+    public class Day1 : Problem {
+        public Day1(string name, string[] input) : base(name, input) {
             
         }
 
-        public override void solvePart1()
-        {
-            base.solvePart1();
+        protected override void reset() {
+            
+        }
 
+        protected override string solvePart1() {
             int max = 0;
 
             int current = 0;
@@ -29,13 +30,10 @@ namespace AdventOfCode {
                 max = current;
             }
 
-            Console.WriteLine(max);
+            return max.ToString();
         }
 
-        public override void solvePart2()
-        {
-            base.solvePart2();
-
+        protected override string solvePart2() {
             int[] top3 = new int[] {0, 0, 0};
 
             int current = 0;
@@ -53,7 +51,7 @@ namespace AdventOfCode {
 
             replaceTop3(top3, current);
 
-            Console.WriteLine(top3.Sum());
+            return top3.Sum().ToString();
         }
 
         void replaceTop3(int[] top3, int value) {

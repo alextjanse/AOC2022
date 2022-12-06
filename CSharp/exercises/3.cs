@@ -1,7 +1,7 @@
 namespace AdventOfCode
 {
-    public class Exercise3 : Exercise, IComparer<char> {
-        public Exercise3(string name, string[] input) : base(name, input) {
+    public class Day3 : Problem, IComparer<char> {
+        public Day3(string name, string[] input) : base(name, input) {
 
         }
 
@@ -19,8 +19,7 @@ namespace AdventOfCode
             throw new Exception("Unexpected character");
         }
 
-        public int Compare(char x, char y)
-        {
+        public int Compare(char x, char y) {
             int px = priority(x);
             int py = priority(y);
 
@@ -38,9 +37,11 @@ namespace AdventOfCode
             return string.Join("", array);
         }
         
-        public override void solvePart1() {
-            base.solvePart1();
+        protected override void reset() {
+            
+        }
 
+        protected override string solvePart1() {
             int total = 0;
 
             foreach (string line in input) {
@@ -64,12 +65,11 @@ namespace AdventOfCode
                 }
             }
 
-            Console.WriteLine(total);
+            return total.ToString();
         }
 
-        public override void solvePart2() {
-            base.solvePart2();
-            
+        protected override string solvePart2()
+        {
             int total = 0;
 
             for (int i = 0; i < input.Length; i += 3) {
@@ -120,7 +120,7 @@ namespace AdventOfCode
                 }
             }
 
-            Console.WriteLine(total);
+            return total.ToString();
         }
     }
 }

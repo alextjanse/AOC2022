@@ -1,13 +1,14 @@
 namespace AdventOfCode {
-    public class Exercise2 : Exercise {
-        public Exercise2(string name, string[] input) : base(name, input) {
+    public class Day2 : Problem {
+        public Day2(string name, string[] input) : base(name, input) {
             
         }
 
-        public override void solvePart1()
-        {
-            base.solvePart1();
+        protected override void reset() {
+            
+        }
 
+        protected override string solvePart1() {
             int totalScore = 0;
 
             foreach (string line in input) {
@@ -19,13 +20,10 @@ namespace AdventOfCode {
                 totalScore += getScore(opponent, player);
             }
 
-            Console.WriteLine(totalScore);
+            return totalScore.ToString();
         }
 
-        public override void solvePart2()
-        {
-            base.solvePart2();
-
+        protected override string solvePart2() {
             int totalScore = 0;
 
             foreach (string line in input) {
@@ -52,7 +50,7 @@ namespace AdventOfCode {
                 totalScore += getScore(opponent, player);
             }
 
-            Console.WriteLine(totalScore);
+            return totalScore.ToString();
         }
 
         enum Move { Rock, Paper, Scissors };

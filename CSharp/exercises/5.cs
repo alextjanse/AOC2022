@@ -1,19 +1,17 @@
 namespace AdventOfCode {
-    public class Exercise5 : Exercise {
-        Stack<char>[] stacks1, stacks2;
+    public class Day5 : Problem {
+        Stack<char>[] starting_stacks;
         List<(int, int, int)> exchanges;
 
-        public Exercise5(string name, string[] input) : base(name, input) {
+        public Day5(string name, string[] input) : base(name, input) {
             int nStacks = (input[0].Length + 1) / 4;
 
-            stacks1 = new Stack<char>[nStacks];
-            stacks2 = new Stack<char>[nStacks];
+            starting_stacks = new Stack<char>[nStacks];
 
             List<char>[] temps = new List<char>[nStacks];
 
             for (int i = 0; i < nStacks; i++) {
-                stacks1[i] = new Stack<char>();
-                stacks2[i] = new Stack<char>();
+                starting_stacks[i] = new Stack<char>();
                 temps[i] = new List<char>();
             }
 
@@ -38,8 +36,7 @@ namespace AdventOfCode {
 
             for (int i = 0; i < nStacks; i++) {
                 for (int j = temps[i].Count - 1; j >= 0; j--) {
-                    stacks1[i].Push(temps[i][j]);
-                    stacks2[i].Push(temps[i][j]);
+                    starting_stacks[i].Push(temps[i][j]);
                 }
             }
 
@@ -60,48 +57,44 @@ namespace AdventOfCode {
             }
         }
 
-        public override void solvePart1()
-        {
-            base.solvePart1();
-
-            foreach ((int amount, int from, int to) in exchanges) {
-                for (int i = 0; i < amount; i++) {
-                    stacks1[to].Push(stacks1[from].Pop());
-                }
-            }
-
+        string read(Stack<char>[] stacks) {
             string output = "";
 
-            foreach (Stack<char> stack in stacks1) {
+            foreach (Stack<char> stack in stacks) {
                 output += stack.Peek();
             }
 
-            Console.WriteLine(output);
+            return output;
         }
 
-        public override void solvePart2()
+        protected override string solvePart1() {
+            Stack<char>[] stacks = starting_stacks.ToArray();
+            foreach ((int amount, int from, int to) in exchanges) {
+                for (int i = 0; i < amount; i++) {
+                    stacks[to].Push(stacks[from].Pop());
+                }
+            }
+
+            return read(stacks);
+        }
+
+        protected override string solvePart2()
         {
-            base.solvePart2();
-            
-            Stack<char> temp = new Stack<char>();
+            Stack<char>[] stacks = starting_stacks.ToArray();
+
+            Stack<char> pile = new Stack<char>();
 
             foreach ((int amount, int from, int to) in exchanges) {
                 for (int i = 0; i < amount; i++) {
-                    temp.Push(stacks2[from].Pop());
+                    pile.Push(stacks[from].Pop());
                 }
 
-                while (temp.Count > 0) {
-                    stacks2[to].Push(temp.Pop());
+                while (pile.Count > 0) {
+                    stacks[to].Push(pile.Pop());
                 }
             }
 
-            string output = "";
-
-            foreach (Stack<char> stack in stacks2) {
-                output += stack.Peek();
-            }
-
-            Console.WriteLine(output);
+            return read(stacks);
         }
     }
 }

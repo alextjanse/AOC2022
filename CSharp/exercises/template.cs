@@ -1,16 +1,20 @@
 namespace AdventOfCode
 {
-    public class Template : Exercise {
+    public class Template : Problem {
         public Template(string name, string[] input) : base(name, input) {
 
         }
 
-        public override void solvePart1() {
-
+        protected override void reset() {
+            throw new NotImplementedException();
         }
 
-        public override void solvePart2() {
+        protected override string solvePart1() {
+            throw new NotImplementedException();
+        }
 
+        protected override string solvePart2() {
+            throw new NotImplementedException();
         }
     }
 }
