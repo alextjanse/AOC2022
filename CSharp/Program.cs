@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace AdventOfCode
+﻿namespace AdventOfCode
 {
     public abstract class Problem {
         string name;
@@ -29,33 +26,26 @@ namespace AdventOfCode
             }
 
             foreach (string s in args) {
-                string[] input = readInput(s);
-                Problem problem;
+                string assemblyName = $"AdventOfCode.Day{s}, AOC2022";
+                
+                Type? type = Type.GetType(assemblyName);
 
-                switch (s) {
-                    case "1":
-                        problem = new Day1(s, input);
-                        break;
-                    case "2":
-                        problem = new Day2(s, input);
-                        break;
-                    case "3":
-                        problem = new Day3(s, input);
-                        break;
-                    case "4":
-                        problem = new Day4(s, input);
-                        break;
-                    case "5":
-                        problem = new Day5(s, input);
-                        break;
-                    case "6":
-                        problem = new Day6(s, input);
-                        break;
-                    case "7":
-                        problem = new Day7(s, input);
-                        break;
-                    default:
-                        throw new Exception("invalid argument");
+                if (type == null) {
+                    throw new Exception("Unsolved/unknown problem: " + s);
+                }
+                
+                string[] input = readInput(s);
+
+                object? instance = Activator.CreateInstance(type, new object?[] { s, input });
+
+                if (instance == null) {
+                    throw new Exception("Something went wrong while creating the problem instance");
+                }
+
+                Problem? problem = instance as Problem;
+
+                if (problem == null) {
+                    throw new Exception("Something went wrong while casting the instance to a problem");
                 }
 
                 problem.solve();
