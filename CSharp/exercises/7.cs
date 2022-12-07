@@ -8,11 +8,11 @@ namespace AdventOfCode
         in every directory.
          */
         public string name;
-        public Directory? parent; // Used for $ cd ..
+        public Directory? parent; // Used for `$ cd ..`
 
-        // Dictionary, because we then can easily find the subfolder for $ cd sub
+        // Dictionary, because then we can easily find the subfolder for `$ cd sub`
         public Dictionary<string, Directory> subdirectories;
-        // This doesn't have to be a dictionary, but would be nice to have for other purposees
+        // This doesn't have to be a dictionary, but would be nice to have for other purposes
         public Dictionary<string, int> files;
         public int size;
 
