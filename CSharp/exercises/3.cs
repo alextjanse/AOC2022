@@ -74,33 +74,17 @@ namespace AdventOfCode
                         break;
                     }
 
-                    // This could probably be done nicer, but it does the trick
-                    if (prio1 == prio2) {
-                        if (prio1 < prio3) {
-                            j++;
-                            k++;
-                        } else {
-                            l++;
-                        }
-                    } else if (prio1 == prio3) {
-                        if (prio1 < prio2) {
-                            j++;
-                            l++;
-                        } else {
-                            k++;
-                        }
-                    } else if (prio2 == prio3) {
-                        if (prio2 < prio1) {
-                            k++;
-                            l++;
-                        } else {
-                            j++;
-                        }
-                    } else if (prio1 < prio2 && prio1 < prio3) {
+                    // If item 1 has (shared) lowest prio, take next
+                    if (prio1 <= prio2 && prio1 <= prio3) {
                         j++;
-                    } else if (prio2 < prio1 && prio2 < prio3) {
+                    }
+
+                    // Same for item 2 and 3
+                    if (prio2 <= prio1 && prio2 <= prio3) {
                         k++;
-                    } else {
+                    }
+                    
+                    if (prio3 <= prio1 && prio3 <= prio2) {
                         l++;
                     }
                 }
