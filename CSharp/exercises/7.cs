@@ -124,23 +124,36 @@ namespace AdventOfCode
                 throw new Exception("There is already enough free space");
             }
             
-            Directory min = root;
-            findSmallestDirectory(root, spaceToFree, ref min);
+            findSmallestDirectory(root, spaceToFree, out Directory? min);
 
+            if (min == null) {
+                // This won't ever happen, since we know that root is large enough
+                throw new Exception("There is no directory large enough");
+            }
+            
             return min.size.ToString();
         }
 
-        void findSmallestDirectory(Directory directory, int minSize, ref Directory min) {
-            // Recursively seek for the smallest directory with size > minSize
-            if (directory.size > minSize) {
-                if (directory.size < min.size) {
-                    min = directory;
-                }
+        bool findSmallestDirectory(Directory directory, int minSize, out Directory? min) {
+            if (directory.size < minSize) {
+                min = null;
+                return false;
+            }
 
-                foreach (Directory sub in directory.subdirectories.Values) {
-                    findSmallestDirectory(sub, minSize, ref min);
+            min = directory;
+
+            // Recursively seek for the smallest directory with size > minSize
+            foreach (Directory sub in directory.subdirectories.Values) {
+                if (findSmallestDirectory(sub, minSize, out Directory? temp)) {
+                    if (temp != null) {
+                        if (temp.size < min.size) {
+                            min = temp;
+                        }
+                    }
                 }
             }
+
+            return true;
         }
     }
 }
