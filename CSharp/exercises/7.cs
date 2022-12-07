@@ -135,6 +135,12 @@ namespace AdventOfCode
         }
 
         bool findSmallestDirectory(Directory directory, int minSize, out Directory? min) {
+            /* 
+            Return false if the directory is not big enough. We also don't have to look
+            into its subdirectories, since they are also too small.
+            Return true otherwise. Also, hand back the directory with minimal size larger
+            than the minimum size.
+             */
             if (directory.size < minSize) {
                 min = null;
                 return false;
