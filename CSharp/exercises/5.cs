@@ -97,7 +97,7 @@ namespace AdventOfCode {
         }
 
         protected override string solvePart2() {
-            Stack<char>[] stacks = stacks1;
+            Stack<char>[] stacks = stacks2;
 
             /* 
             We can't move multiple items at once, so we make a new stack,
