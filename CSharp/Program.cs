@@ -25,7 +25,7 @@ namespace AdventOfCode
     internal class Program {
         static void Main(string[] args) {
             if (args.Length == 0) {
-                args = new string[] { "1", "2", "3", "4", "5", "6" };
+                args = new string[] { "1", "2", "3", "4", "5", "6", "7" };
             }
 
             foreach (string s in args) {
@@ -50,6 +50,9 @@ namespace AdventOfCode
                         break;
                     case "6":
                         problem = new Day6(s, input);
+                        break;
+                    case "7":
+                        problem = new Day7(s, input);
                         break;
                     default:
                         throw new Exception("invalid argument");
