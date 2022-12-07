@@ -81,20 +81,24 @@ namespace AdventOfCode {
         }
 
         protected override string solvePart1() {
+            Stack<char>[] stacks = stacks1;
+
             /* 
             Apply the list of exhanges one by one
              */
             foreach ((int amount, int from, int to) in exchanges) {
                 for (int i = 0; i < amount; i++) {
                     // Can this be done nicer? Probably.
-                    stacks1[to].Push(stacks1[from].Pop());
+                    stacks[to].Push(stacks[from].Pop());
                 }
             }
 
-            return read(stacks1);
+            return read(stacks);
         }
 
         protected override string solvePart2() {
+            Stack<char>[] stacks = stacks1;
+
             /* 
             We can't move multiple items at once, so we make a new stack,
             where we put all the items on one by one (order will reverse).
@@ -106,15 +110,15 @@ namespace AdventOfCode {
 
             foreach ((int amount, int from, int to) in exchanges) {
                 for (int i = 0; i < amount; i++) {
-                    pile.Push(stacks2[from].Pop());
+                    pile.Push(stacks[from].Pop());
                 }
 
                 while (pile.Count > 0) {
-                    stacks2[to].Push(pile.Pop());
+                    stacks[to].Push(pile.Pop());
                 }
             }
 
-            return read(stacks2);
+            return read(stacks);
         }
     }
 }
