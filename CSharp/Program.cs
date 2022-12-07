@@ -36,7 +36,7 @@
                 
                 string[] input = readInput(s);
 
-                object? instance = Activator.CreateInstance(type, new object?[] { s, input });
+                object? instance = Activator.CreateInstance(type, new object[] { s, input });
 
                 if (instance == null) {
                     throw new Exception("Something went wrong while creating the problem instance");
