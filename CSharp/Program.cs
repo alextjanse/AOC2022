@@ -1,4 +1,6 @@
-﻿namespace AdventOfCode
+﻿using System.Diagnostics;
+
+namespace AdventOfCode
 {
     public abstract class Problem {
         string name;
@@ -10,9 +12,23 @@
         }
 
         public void solve() {
+            Stopwatch sw = new Stopwatch();
+
+            sw.Start();
+            string answer1 = solvePart1();
+            sw.Stop();
+            long elapsedTime1 = sw.ElapsedMilliseconds;
+            
+            sw.Reset();
+
+            sw.Start();
+            string answer2 = solvePart2();
+            sw.Stop();
+            long elapsedTime2 = sw.ElapsedMilliseconds;
+
             Console.WriteLine($"Day {name}");
-            Console.WriteLine("Part One: " + solvePart1());
-            Console.WriteLine("Part Two: "+ solvePart2());
+            Console.WriteLine($"Part One ({elapsedTime1} ms): {answer1}");
+            Console.WriteLine($"Part Two ({elapsedTime2} ms): {answer2}");
         }
 
         protected abstract string solvePart1();
@@ -53,7 +69,9 @@
         }
 
         static string[] readInput(string exercise) {
-            StreamReader sr = new StreamReader($"../input/{exercise}.txt");
+            StreamReader sr = new StreamReader(
+                Path.Combine(Environment.CurrentDirectory, "..", "input", exercise + ".txt")
+            );
 
             return sr.ReadToEnd().Split('\n');
         }
