@@ -37,6 +37,8 @@ namespace AdventOfCode
 
     internal class Program {
         static void Main(string[] args) {
+            args = new string[] { "8" };
+            
             if (args.Length == 0) {
                 args = new string[] { "1", "2", "3", "4", "5", "6", "7" };
             }
