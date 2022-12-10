@@ -6,11 +6,11 @@ namespace AdventOfCode
         }
 
         protected override string solvePart1() {
-            throw new NotImplementedException();
+            return "not solved yet";
         }
 
         protected override string solvePart2() {
-            throw new NotImplementedException();
+            return "not solved yet";
         }
     }
 }
