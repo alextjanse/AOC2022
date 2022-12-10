@@ -12,12 +12,14 @@ namespace AdventOfCode
         }
 
         public void solve() {
+            Console.WriteLine($"Day {name}");
             Stopwatch sw = new Stopwatch();
 
             sw.Start();
             string answer1 = solvePart1();
             sw.Stop();
             long elapsedTime1 = sw.ElapsedMilliseconds;
+            Console.WriteLine($"Part One ({elapsedTime1} ms): {answer1}");
             
             sw.Reset();
 
@@ -25,9 +27,6 @@ namespace AdventOfCode
             string answer2 = solvePart2();
             sw.Stop();
             long elapsedTime2 = sw.ElapsedMilliseconds;
-
-            Console.WriteLine($"Day {name}");
-            Console.WriteLine($"Part One ({elapsedTime1} ms): {answer1}");
             Console.WriteLine($"Part Two ({elapsedTime2} ms): {answer2}");
         }
 
@@ -37,7 +36,7 @@ namespace AdventOfCode
 
     internal class Program {
         static void Main(string[] args) {
-            args = new string[] { "8" };
+            args = new string[] { "9" };
             
             if (args.Length == 0) {
                 args = new string[] { "1", "2", "3", "4", "5", "6", "7" };
