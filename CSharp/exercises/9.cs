@@ -123,21 +123,13 @@ namespace AdventOfCode
                         int xCurr = positions[k, 0];
                         int yCurr = positions[k, 1];
 
+                        // Pythagoras
                         if ((xPrev - xCurr) * (xPrev - xCurr) + (yPrev - yCurr) * (yPrev - yCurr) > 2) {
-                            switch (direction) {
-                                case Direction.Up:
-                                    positions[k, 1]++;
-                                    break;
-                                case Direction.Down:
-                                    positions[k, 1]--;
-                                    break;
-                                case Direction.Left:
-                                    positions[k, 0]--;
-                                    break;
-                                case Direction.Right:
-                                    positions[k, 0]++;
-                                    break;
-                            }
+                            int xDelta = Math.Abs(xPrev - xCurr) > 1 ? (xPrev - xCurr) / 2 : xPrev - xCurr;
+                            int yDelta = Math.Abs(yPrev - yCurr) > 1 ? (yPrev - yCurr) / 2 : yPrev - yCurr;
+
+                            positions[k, 0] = xCurr + xDelta;
+                            positions[k, 1] = yCurr + yDelta;
                         } else {
                             // The knot doesn't move, so the following knots don't move either
                             break;
