@@ -36,10 +36,16 @@ namespace AdventOfCode
 
     internal class Program {
         static void Main(string[] args) {
-            args = new string[] { "11" };
+            int solved = 12;
+
+            // args = new string[] { solved.ToString() };
             
             if (args.Length == 0) {
-                args = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11" };
+                args = new string[solved];
+                
+                for (int i = 1; i <= solved; i++) {
+                    args[i - 1] = i.ToString();
+                }
             }
 
             foreach (string s in args) {
